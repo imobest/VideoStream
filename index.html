@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Video Streaming JS</title>
+	</head>
+	<body>
+		<video id="video"></video>
+		<canvas id="canvas"></canvas><br>
+		<button onclick="fotka();">Fotka</button>
+		<script type="text/javascript">
+			var video = document.getElementById('video');
+			var canvas = document.getElementById('canvas');
+			var context = canvas.getContext('2d');
+
+			navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.oGetUserMedia || navigator.msGetUserMedia;
+
+			if(navigator.getUserMedia){
+				navigator.getUserMedia({video:true}, strim, blad);
+			}
+
+			function strim (stream) {
+				video.srcObject = stream;
+				video.play();
+			}
+
+			function blad (e) {
+				alert(e.name);
+			}
+
+			function fotka () {
+				canvas.width = video.clientWidth;
+				canvas.height = video.clientHeight;
+				context.drawImage(video, 0, 0);
+			}
+		</script>
+	</body>
+</html>
